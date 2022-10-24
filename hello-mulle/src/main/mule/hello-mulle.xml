@@ -8,6 +8,9 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="48288fc8-bd0c-43cb-9b04-62f107ca239d" basePath="api" >
 		<http:listener-connection host="0.0.0.0" port="8081" />
 	</http:listener-config>
+	<http:listener-config name="HTTP_Listener_config-2" doc:name="HTTP Listener config" doc:id="a5cde80a-2552-4f25-ab01-0a8d82decea4" basePath="api" >
+		<http:listener-connection host="0.0.0.0" port="8082" />
+	</http:listener-config>
 	<flow name="hello-mulleFlow" doc:id="1a7d2a04-1a15-41c1-8f57-c7af3288c795" >
 		<http:listener doc:name="Listener" doc:id="6403e46d-226e-4d91-b472-331663ce377a" config-ref="HTTP_Listener_config" path="hello-mule"/>
 		<logger level="INFO" doc:name="Logger" doc:id="720b8c65-d212-4746-870d-e816d2c0d15e" message="Hello Mule"/>
@@ -19,5 +22,10 @@ output application/json
 payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="4e70604b-2d31-4be0-9cc3-ed192458adca" message="End hello-mulleFlow"/>
+	</flow>
+	<flow name="hello-mulleFlow1" doc:id="c94859f1-5d88-4523-8d4b-a3ed8cb57c42" >
+		<http:listener doc:name="Listener" doc:id="df279a88-fcdc-4fb9-9c09-984a1b9d4913" config-ref="HTTP_Listener_config-2" path="bye"/>
+		<logger level="INFO" doc:name="Logger" doc:id="709b560e-8cf1-4249-99f5-c32f81cbd6af" message="#[payload]"/>
 	</flow>
 </mule>
